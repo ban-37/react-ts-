@@ -1,51 +1,47 @@
 import { Menu, MenuProps } from 'antd'
 import Sider from 'antd/es/layout/Sider'
-import MenuItem from 'antd/es/menu/MenuItem';
-import React, { useState } from 'react'
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
+import  { useEffect, useState } from 'react'
+import { mainRoutes } from '@/router';
+import { useNavigate ,useLocation } from 'react-router-dom';
 
 
 type MenuItem = Required<MenuProps>['items'][number];
-function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-): MenuItem {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    } as MenuItem;
-}
 
-const items: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
-];
-type Props = {}
 
-function AppSider({}: Props) {
+const items: MenuItem[] =mainRoutes
+
+
+function AppSider() {
     const [collapsed, setCollapsed] = useState(false);
-  return (
+    const navigate = useNavigate()
+    const location = useLocation()
+    const [selectedKey, setSelectedKey] = useState<string>("dashboard")
+    const [openKey, setOpenKey] = useState<Array<string>>([]);
+    const handOpenKey = (arr:Array<string>) =>{
+    console.log(arr)
+    setOpenKey(arr)
+    }
+    const handlerMenu = ({key}:{key:string}) => {
+        navigate(key)
+        setSelectedKey(key)
+    }
+    useEffect(()=>{
+        setSelectedKey(location.pathname)
+        let open = location.pathname.split("/")[1]
+        setOpenKey([`/${open}`])
+    },[location])
+
+    return (
     <div>
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
     <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
-    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+    <Menu 
+    theme="dark" 
+    selectedKeys={[selectedKey]}
+    mode="inline" 
+    items={items} onClick={handlerMenu}
+    openKeys={openKey}
+    onOpenChange = {handOpenKey}/>
 </Sider>
 </div>
   )

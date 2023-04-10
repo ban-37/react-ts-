@@ -1,9 +1,9 @@
 import { Breadcrumb } from 'antd'
 import React from 'react'
 
-type Props = {}
 
-function AppBreadcrumb({ }: Props) {
+
+function AppBreadcrumb() {
   return (
     <div>
       <Breadcrumb style={{ margin: '16px 0' }}
@@ -11,15 +11,7 @@ function AppBreadcrumb({ }: Props) {
         {
           title: 'Home',
         },
-        {
-          title: <a href="">Application Center</a>,
-        },
-        {
-          title: <a href="">Application List</a>,
-        },
-        {
-          title: 'An Application',
-        },
+        
       ]}
       >
     </Breadcrumb>
