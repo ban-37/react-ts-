@@ -144,5 +144,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "leancloud-storage": "^4.14.0"
   }
 }

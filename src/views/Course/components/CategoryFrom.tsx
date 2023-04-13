@@ -1,7 +1,7 @@
 import { ICategoryParams, categoryGet, categoryPost } from '@/api/course';
 import { Button, Form, Input, Select } from 'antd';
 
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 const { Option } = Select;
 
@@ -15,8 +15,10 @@ const tailLayout = {
 };
 
 
-
-const CategoryFrom = () => {
+interface ICategoryProp{
+    setIsModalOpen:Dispatch<SetStateAction<boolean>>
+}
+const CategoryFrom:React.FC<ICategoryProp> = (props) => {
     const [form] = Form.useForm();
     const [cateList, setCateList] = useState<ICategoryParams[]>([])
 
@@ -33,6 +35,7 @@ const CategoryFrom = () => {
         //新增分类
         categoryPost({...values,status: true }).then((res) => {
             console.log(res)
+            props.setIsModalOpen(false)
         })
     };
 

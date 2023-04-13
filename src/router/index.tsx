@@ -3,6 +3,7 @@ import  {IMenuType} from"./type"
 import Category from '../views/Course/Category'
 import ArticleList from '../views/Course/ArticleList'
 import DashBoard from '../views/DashBoard'
+import ArticlePublic from "@/views/Course/ArticlePublic";
 export const mainRoutes:IMenuType[] = [
   {
     key: "/dashboard",
@@ -27,6 +28,11 @@ export const mainRoutes:IMenuType[] = [
         label: "课程列表",
         title: "课程列表",
         element: <ArticleList />,
+      },{
+        key: "/course/artpub",
+        label: "课程发布",
+        title: "课程发布",
+        element: <ArticlePublic />,
       },
     ],
   },
