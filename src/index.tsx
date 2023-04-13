@@ -5,7 +5,6 @@ import{HashRouter} from "react-router-dom"
 
 
 import { ID, KEY, BASE } from "@/config";
-
 import Cloud from "leancloud-storage";
 Cloud.init({
   appId: ID,

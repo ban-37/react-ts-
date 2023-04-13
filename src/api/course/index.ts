@@ -31,3 +31,18 @@ export const categoryGet = (where: CateConditionType = { fatherId: "0-0" }) => {
 export const categoryPut = (objectId: string, status: boolean) => {
   return request.put(`classes/ReactCategory/${objectId}`, { status });
 };
+
+// 课程录入
+export interface ICourseType {
+  name: string;
+  info: string;
+  poster: string;
+  isvip: boolean;
+  category: [string, string];
+  catelv1: string;
+  catelv2: string;
+  desc: string;
+}
+export const coursePost = (courseObj: ICourseType) => {
+  return request.post("classes/ReactAricle", courseObj);
+};

@@ -1,13 +1,19 @@
-import { ICategoryParams, TableCateoryType, categoryGet } from '@/api/course';
+import { ICategoryParams, TableCateoryType, categoryGet, coursePost } from '@/api/course';
 import ImgUpload from '@/components/ImgUpload';
 import { Button, Cascader, Form, Input, Switch } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-
-import React, { useEffect, useState } from 'react'
+// 引入编辑器组件
+// eslint-disable-next-line
+import BraftEditor from 'braft-editor'
+// 引入编辑器样式
+// eslint-disable-next-line
+import 'braft-editor/dist/index.css'
+import { useEffect, useState } from 'react'
 
 type Props = {}
 
 const ArticlePublic = (props: Props) => {
+  const [form] = Form.useForm();
   const [cateList, setCateList] = useState<ICategoryParams[]>([]);
   const layout = {
     labelCol: { span: 8 },
@@ -18,7 +24,10 @@ const ArticlePublic = (props: Props) => {
   };
   
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    console.log(values);
+    values.catelv1 = values.category[0];
+    values.catelv2 = values.category[1];
+    coursePost(values);
   };
 
   useEffect(() => {
@@ -40,13 +49,20 @@ const ArticlePublic = (props: Props) => {
     }
       getCateList()
     },[])
-
+    // eslint-disable-next-line
+    const handleEditor = (editorState:any) =>{
+      console.log(editorState.toHTML())
+      form.setFieldsValue({
+        desc: editorState.toHTML(),
+      })
+    }
   return (
     <Form
     {...layout}
     name="control-hooks"
     onFinish={onFinish}
     style={{ maxWidth: 600 }}
+    form={form}
   >
     <Form.Item name="name" label="课程名称" rules={[{ required: true }]}>
       <Input />
@@ -66,9 +82,12 @@ const ArticlePublic = (props: Props) => {
     <Form.Item name="poster" label="课程封面" rules={[{ required: true }]}>
     <ImgUpload></ImgUpload>
     </Form.Item>
-    <Form.Item name="desc" label="课程详情" rules={[{ required: true }]}>
-      <div>富文本编辑器</div>
-    </Form.Item>
+    {/* <Form.Item name="desc" label="课程详情" rules={[{ required: true }]}>
+    <BraftEditor
+      style={{ border: "1px solid #d8d8d8" }}
+      onChange={ handleEditor}
+      />
+    </Form.Item> */}
 
     <Form.Item {...tailLayout}>
       <Button type="primary" htmlType="submit">
