@@ -3,8 +3,6 @@ import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons
 import { Button, Upload, message } from 'antd';
 import type { RcFile } from 'antd/es/upload/interface';
 import Cloud from "leancloud-storage";
-
-
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result as string));

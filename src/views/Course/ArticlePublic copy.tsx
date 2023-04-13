@@ -3,11 +3,9 @@ import ImgUpload from '@/components/ImgUpload';
 import { Button, Cascader, Form, Input, Switch } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 // 引入编辑器组件
-// eslint-disable-next-line
-import BraftEditor from 'braft-editor'
+
 // 引入编辑器样式
-// eslint-disable-next-line
-import 'braft-editor/dist/index.css'
+
 import { useEffect, useState } from 'react'
 
 type Props = {}
@@ -62,7 +60,7 @@ const ArticlePublic = (props: Props) => {
     name="control-hooks"
     onFinish={onFinish}
     style={{ maxWidth: 600 }}
-    form={form}
+    form={(form)}
   >
     <Form.Item name="name" label="课程名称" rules={[{ required: true }]}>
       <Input />

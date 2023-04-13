@@ -1,14 +1,14 @@
-import { Menu, MenuProps } from 'antd'
+import { Menu } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import  { useEffect, useState } from 'react'
 import { mainRoutes } from '@/router';
 import { useNavigate ,useLocation } from 'react-router-dom';
+import { IMenuType } from '@/router/type';
 
 
-type MenuItem = Required<MenuProps>['items'][number];
 
 
-const items: MenuItem[] =mainRoutes
+
 
 
 function AppSider() {
@@ -30,7 +30,14 @@ function AppSider() {
         let open = location.pathname.split("/")[1]
         setOpenKey([`/${open}`])
     },[location])
-
+const handleMenuData = (routes:IMenuType[])=>{
+    return routes.filter((item:IMenuType)=>{
+        if(item.children){
+            item.children = handleMenuData(item.children)
+        }
+        return !item.hidden
+    })
+}
     return (
     <div>
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
@@ -39,7 +46,8 @@ function AppSider() {
     theme="dark" 
     selectedKeys={[selectedKey]}
     mode="inline" 
-    items={items} onClick={handlerMenu}
+    items={handleMenuData(mainRoutes)} 
+    onClick={handlerMenu}
     openKeys={openKey}
     onOpenChange = {handOpenKey}/>
 </Sider>

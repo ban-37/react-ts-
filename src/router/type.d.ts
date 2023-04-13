@@ -6,4 +6,5 @@ export interface IMenuType {
     icon?: ReactNode;
     element?: ReactNode;
     children?: IMenuType[];
+    hidden? :boolean;
 }
