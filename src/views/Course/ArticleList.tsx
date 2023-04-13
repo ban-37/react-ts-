@@ -4,7 +4,7 @@ import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, } from '@ant-design/pro-components';
 import { Button, Tag, Image } from 'antd';
 import { ICourseType, courseGet } from '@/api/course';
-import {  useEffect, useRef } from 'react';
+import {   useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 type Props = {}
 
@@ -70,11 +70,6 @@ const columns: ProColumns<ICourseType>[] = [
 const ArticleList = (props: Props) => {
     const navigator = useNavigate()
     const ref = useRef<ActionType>();
-    useEffect(() => {
-        if (ref.current) {
-            console.log(ref.current);
-        }
-    }, []);
     return (
         <ProTable<ICourseType>
             columns={columns}
@@ -82,7 +77,7 @@ const ArticleList = (props: Props) => {
             request={async (params, sorter, filter) => {
                 // 表单搜索项会从 params 传入，传递给后端接口。
                 let res = await courseGet(params);
-                console.log(params, sorter, filter);
+
                 return {
                     data: res.data.results,
                 };
