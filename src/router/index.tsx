@@ -5,6 +5,8 @@ import ArticleList from '../views/Course/ArticleList'
 import DashBoard from '../views/DashBoard'
 import ArticlePublic from "@/views/Course/ArticleEdit";
 import ArticleEdit from "@/views/Course/ArticleEdit";
+import UserSet from "@/views/userSet";
+
 export const mainRoutes:IMenuType[] = [
   {
     key: "/dashboard",
@@ -44,4 +46,11 @@ export const mainRoutes:IMenuType[] = [
       },
     ],
   },
+  {
+    key: "/useSetting",
+    label: "个人中心",
+    title: "个人中心",
+    icon: <AreaChartOutlined />,
+    element: <UserSet/>,
+  }
 ];

@@ -18,7 +18,8 @@ import { Col, message, Row, Space, Spin, Tabs } from 'antd';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginStart } from '@/store/modules/user';
+import {  userLoginAsync } from '@/store/modules/user';
+import { useNavigate } from 'react-router-dom';
 type LoginType = 'phone' | 'account';
 
 const iconStyles: CSSProperties = {
@@ -29,13 +30,17 @@ const iconStyles: CSSProperties = {
   cursor: 'pointer',
 };
 
+
+
 const  Login = () => {
   const [loginType, setLoginType] = useState<LoginType>('account');
   const {user} =useSelector((state:RootState) => state)
   const dispatch =useDispatch()
+  const navigator = useNavigate()
+
   const handlerLogin = async (values:any)=>{
   console.log(values)
-  dispatch(loginStart())
+  userLoginAsync(values,dispatch,navigator)
   }
   return (
     <ProConfigProvider hashed={false}>
@@ -46,9 +51,9 @@ const  Login = () => {
           <Spin spinning={ user.isLoading}>
         <LoginForm
         onFinish={handlerLogin}
-          logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-          title="Github"
-          subTitle="全球最大的代码托管平台"
+          logo="https://img0.baidu.com/it/u=983644446,966602109&fm=253&app=120&size=w931&n=0&f=PNG&fmt=auto?sec=1681578000&t=25ed538581ebb201070ba820ca99f8fc"
+          title="完美世界"
+          subTitle="全球最大的平台"
           actions={
             <Space>
               其他登录方式

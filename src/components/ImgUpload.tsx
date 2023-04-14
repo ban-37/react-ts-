@@ -60,8 +60,8 @@ const ImgUpload = (props: Props) => {
                 beforeUpload={beforeUpload}
                 customRequest={handleUpload}
             >
-                {imageUrl ? (
-                    <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+                {imageUrl ||props.value ? (
+                    <img src={imageUrl||props.value} alt="avatar" style={{ width: "100%" }} />
                 ) : (
                     uploadButton
                 )}
